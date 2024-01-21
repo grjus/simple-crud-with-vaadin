@@ -1,0 +1,22 @@
+version: '3.8'
+
+volumes:
+  postgres:
+  pgadmin:
+
+services:
+  postgres:
+    container_name: blog-platform
+    labels:
+      # see https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.docker-compose.custom-images for details
+      org.springframework.boot.service-connection: postgres
+    image: "postgres:15"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGDATA: "/data/postgres"
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
